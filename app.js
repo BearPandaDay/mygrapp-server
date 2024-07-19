@@ -6,6 +6,7 @@ const app = express();
 
 //importacion de rutas
 const usuarios = require("./rutas/usuarios");
+const auth = require("./rutas/auth");
 
 
 // app.use(bodyParser.urlencoded({extended: true}));
@@ -17,6 +18,7 @@ app.use(cors());
 
 //configuracion rutas
 app.use("/api/v1", usuarios);
+app.use("/api/v1", auth);
 
 
 module.exports = app;
