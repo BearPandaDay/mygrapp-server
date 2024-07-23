@@ -2,7 +2,11 @@ const mongoose = require("mongoose");
 
 const identificaciondelafuenteSchema = new mongoose.Schema({
   fuente: {
-    type: Object,
+    type: String,
+    required: true,
+  },
+  proveedor: {
+    type: String,
     required: true,
   },
   observaciones: {
