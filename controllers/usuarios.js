@@ -2,35 +2,43 @@ const User = require('../models/usuarios');
 const {ObjectId} = require('mongodb')
 
 async function postUser(req, res) {
-    const arrayData = req.body;
+    try {
+        const arrayData = req.body;
 
+        // const userModel = arrayData.map(data => ({
+        //     Usuario: data.dato1,
+        //     Contrasena: data.dato2,
+        //     Sector: data.dato3,
+        //     Poliza: data.dato4,
+        //     AnioEvaluado: data.dato5,
+        //     Convenio: data.dato6,
+        //     EstadoGrap: data.dato7
+        // })) 
 
-    if (!data.Usuario || !data.Contrasena || !data.Sector || !data.Poliza || !data.AnioEvaluado || !data.Convenio || !data.EstadoGrap) {
-        return res.status(400).send('Faltan campos en el cuerpo de la solicitud.');
+        const response = await User.create(arrayData);
+
+        if (!response) return res.status(400).send({msg: "Error al guardar datos postUser", status: false});
+        return res.status(201).send(response[0]);
+    } catch(error) {
+        if (error.code === 11000) return res.status(503).send({msg: "Error server user existe", status: false});
+
+        return res.status(503).send({msg: "Error server postUser", status: false});
     }
 
-    const userModel = arrayData.map(data => ({
-            Usuario: data.Usuario,
-            Contrasena: data.Contrasena,
-            Sector: data.Sector,
-            Poliza: data.Poliza,
-            AnioEvaluado: data.AnioEvaluado,
-            Convenio: data.Convenio,
-            EstadoGrap: data.EstadoGrap
-    }))
-
-    const response = await User.create(userModel);
-    console.log("🚀 ~ postUser ~ response:", response);
 }
 
 async function getUser(req, res) {
     try {
-        const documentos = await User.find({});
+        const {_id} = req.query;
+        
+        const filter = {};
+        if (_id) filter._id = _id;
+        
+        const documentos = await User.find(filter);
         res.status(200).send(documentos);
-        console.log("METODO GET EJECUTADO CORRECTAMENTE");
         
     } catch (err) {
-        res.status(500).send(err);
+        res.status(503).send({msg: "err", status: false});
         console.log("OCURRIO UN ERROR EN METODO GET");
     }
 };
