@@ -8,7 +8,7 @@ const app = express();
 const usuarios = require("./rutas/usuarios");
 const auth = require("./rutas/auth");
 const identificaciondelafuente = require("./rutas/identificaciondelafuente");
-
+const capacidad = require("./rutas/capacidadtanques");
 
 // app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -21,6 +21,6 @@ app.use(cors());
 app.use("/api/v1", usuarios);
 app.use("/api/v1", auth);
 app.use("/api/v1", identificaciondelafuente);
-
+app.use("/api/v1", capacidad);
 
 module.exports = app;
