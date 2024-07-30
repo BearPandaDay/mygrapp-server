@@ -17,12 +17,16 @@ async function postCapacidad(req, res) {
 
         const response = await Capacidad.create(arrayData);
 
-        if (!response) return res.status(400).send({msg: "Error al guardar datos postUser", status: false});
-        return res.status(201).send(response[0]);
-    } catch(error) {
-        if (error.code === 11000) return res.status(503).send({msg: "Error server user existe", status: false});
+        if (!response) return res.status(400).send({msg: "Error al guardar datos postCapacidad", status: false});
 
-        return res.status(503).send({msg: "Error server postUser", status: false});
+        console.log("Datos guardados correctamente:", arrayData);
+        return res.status(201).send({ msg: "Datos guardados correctamente", data: response[0] });
+        // return res.status(201).send({ msg: "Datos guardados correctamente", data: response[0], status: true });
+
+    } catch(error) {
+        if (error.code === 11000) return res.status(503).send({msg: "Error server ", status: false});
+
+        return res.status(503).send({msg: "Error server postCapacidad", status: false});
     }
 
 }
@@ -61,21 +65,25 @@ async function deleteCapacidad( req, res) {
 };
 
 
-// async function updateUser( req, res) {
-//     try {
-//         const {_id, update} = req.body;
-//         if (!_id) return res.status(400).send({msg: "Id requerido", status: false});
 
+async function updateCapacidad(req, res) {
+    try {
+        const {_id, update} = req.body;
+        if (!_id) return res.status(400).send({msg: "Id Capacidad requerido", status: false});
 
-//         return res.status(200).send(` Actualizacion exitosa`);
-//         //update.description = description;
+        const responde = await Capacidad.findByIdAndUpdate(_id, update, { new: true });
+        if (!responde) {
+            return res.status(404).send({msg: "Documento no encontrado", status: false});
+        }
 
-//         const responde = await User.findByIdAndUpdate(_id, update);
-//         console.log("🚀 ~ updateUser ~ responde:", responde)
-//     } catch(ërror) {
-//         console.log("🚀 ~ updateUser ~ ërror:", ërror)
-//     }
-// }
+        console.log("🚀 ~ updateCapacidad ~ responde:", responde);
+        return res.status(200).send({msg: "Actualizacion exitosa", status: true});
+    } catch (error) {
+        console.log("Ha ocurrido un error al intentar actualizar:", error);
+        return res.status(500).send({msg: "Error al actualizar", status: false});
+    }
+}
+
 
 
 
@@ -83,4 +91,5 @@ module.exports = {
     postCapacidad,
     getCapacidad,
     deleteCapacidad,
+    updateCapacidad
 }
