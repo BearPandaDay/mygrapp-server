@@ -17,7 +17,6 @@ const capacidadtanqueSchema = new mongoose.Schema({
     type: Number,
     required: false,
   },
-
   NivelCapacidad: {
     type: Number,
     required: false,
@@ -28,6 +27,11 @@ const capacidadtanqueSchema = new mongoose.Schema({
   },
   AlertaMedida: {
     type: String,
+    required: false,
+  },
+  Observaciones: {
+    type: String,
+    required: false,
   }
 });
 
