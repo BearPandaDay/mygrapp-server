@@ -61,26 +61,27 @@ async function deleteMantenimiento( req, res) {
 };
 
 
-async function updateMantenimiento( req, res) {
-    try {
-        const {_id, update} = req.body;
-        console.log("🚀 ~ updateMantenimiento ~ req.body:", req.body)
-        if (!_id) return res.status(400).send({msg: "Id requerido", status: false});
+// async function updateMantenimiento( req, res) {
+//     try {
+//         const {_id, update} = req.body;
+//         console.log("🚀 ~ updateMantenimiento ~ req.body:", req.body)
+//         if (!_id) return res.status(400).send({msg: "Id requerido", status: false});
 
 
-        //update.description = description;
+//         //update.description = description;
         
-        //const response = await Mantenimiento.findByIdAndUpdate(_id, update);
-        console.log(response)
-        // return res.status(200).send(` Actualizacion exitosa`);
-    } catch(ërror) {
-        console.log("🚀 ~ updateUser ~ ërror:", ërror)
-    }
-}
+//         //const response = await Mantenimiento.findByIdAndUpdate(_id, update);
+//         console.log(response)
+//         // return res.status(200).send(` Actualizacion exitosa`);
+//     } catch(ërror) {
+//         console.log("🚀 ~ updateUser ~ ërror:", ërror)
+//     }
+// }
+
 
 module.exports = {
     postMantenimiento,
     getMantenimiento,
     deleteMantenimiento,
-    updateMantenimiento
+    // updateMantenimiento
 }
